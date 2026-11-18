@@ -16,6 +16,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        截这块区域到剪贴板\n"
   "  sniplite pin [图片]          贴到屏幕，不给图片就贴剪贴板\n"
   "  sniplite ocr                 框选一块区域识别文字，加 --copy 直接复制\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  录制视频，--stop 停止\n"
+  "  sniplite shelf [show|hide|add|clear|count]     管理衣架（拖入/拖出）\n"
+  "  sniplite studio [puzzle|merge] [图片...]       打开创作工作台\n"
   "  sniplite settings            打开首选项\n"
   "  sniplite update              检查更新，加 --install 直接装上新版本\n"
   "  sniplite status              看状态\n"
@@ -37,6 +40,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        截這塊區域到剪貼簿\n"
   "  sniplite pin [圖片]          貼到螢幕，不給圖片就貼剪貼簿\n"
   "  sniplite ocr                 框選一塊區域辨識文字，加 --copy 直接複製\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  錄製影片，--stop 停止\n"
+  "  sniplite shelf [show|hide|add|clear|count]     管理衣架（拖入/拖出）\n"
+  "  sniplite studio [puzzle|merge] [圖片...]       開啟創作工作台\n"
   "  sniplite settings            開啟偏好設定\n"
   "  sniplite update              檢查更新，加 --install 直接裝上新版本\n"
   "  sniplite status              看狀態\n"
@@ -58,6 +64,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        copy that area to the clipboard\n"
   "  sniplite pin [image]         pin an image, or the clipboard without one\n"
   "  sniplite ocr                 select an area and read its text; --copy copies it at once\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  record video; --stop ends it\n"
+  "  sniplite shelf [show|hide|add|clear|count]     manage the shelf (drop in / drag out)\n"
+  "  sniplite studio [puzzle|merge] [images...]     open the creative studio\n"
   "  sniplite settings            open Settings\n"
   "  sniplite update              check for updates; --install installs the new version\n"
   "  sniplite status              show the status\n"
@@ -79,6 +88,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        この範囲をクリップボードにコピー\n"
   "  sniplite pin [画像]          画像をピン留め（省略時はクリップボード）\n"
   "  sniplite ocr                 範囲を選んで文字を読み取る。--copy でそのままコピー\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  動画を録画。--stop で停止\n"
+  "  sniplite shelf [show|hide|add|clear|count]     シェルフを管理\n"
+  "  sniplite studio [puzzle|merge] [画像...]       スタジオを開く\n"
   "  sniplite settings            設定を開く\n"
   "  sniplite update              更新を確認（--install で新バージョンをインストール）\n"
   "  sniplite status              状態を表示\n"
@@ -100,6 +112,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        이 영역을 클립보드에 복사\n"
   "  sniplite pin [이미지]        화면에 고정 (이미지가 없으면 클립보드)\n"
   "  sniplite ocr                 영역을 선택해 텍스트 인식, --copy 는 바로 복사\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  동영상 녹화, --stop 으로 중지\n"
+  "  sniplite shelf [show|hide|add|clear|count]     선반 관리\n"
+  "  sniplite studio [puzzle|merge] [이미지...]     스튜디오 열기\n"
   "  sniplite settings            설정 열기\n"
   "  sniplite update              업데이트 확인 (--install로 새 버전 설치)\n"
   "  sniplite status              상태 표시\n"
@@ -121,6 +136,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        copier cette zone dans le presse-papiers\n"
   "  sniplite pin [image]         épingler une image, sinon le presse-papiers\n"
   "  sniplite ocr                 sélectionner une zone et lire son texte ; --copy le copie aussitôt\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  enregistrer une vidéo ; --stop l'arrête\n"
+  "  sniplite shelf [show|hide|add|clear|count]     gérer l'étagère\n"
+  "  sniplite studio [puzzle|merge] [images...]     ouvrir l'atelier\n"
   "  sniplite settings            ouvrir les préférences\n"
   "  sniplite update              chercher une mise à jour ; --install l'installe\n"
   "  sniplite status              afficher l'état\n"
@@ -142,6 +160,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        diesen Bereich in die Zwischenablage kopieren\n"
   "  sniplite pin [Bild]          Bild anheften, ohne Bild die Zwischenablage\n"
   "  sniplite ocr                 Bereich wählen und Text erkennen; --copy kopiert ihn sofort\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  Video aufnehmen; --stop beendet es\n"
+  "  sniplite shelf [show|hide|add|clear|count]     Regal verwalten\n"
+  "  sniplite studio [puzzle|merge] [Bilder...]     Studio öffnen\n"
   "  sniplite settings            Einstellungen öffnen\n"
   "  sniplite update              nach Updates suchen; --install installiert die neue Version\n"
   "  sniplite status              Status anzeigen\n"
@@ -163,6 +184,9 @@ X(HELP,
   "  sniplite capture --rect 0,0,800,600        copiar esa zona al portapapeles\n"
   "  sniplite pin [imagen]        fijar una imagen o, sin ella, el portapapeles\n"
   "  sniplite ocr                 seleccionar una zona y leer su texto; --copy lo copia al momento\n"
+  "  sniplite record [--full|--window] [--out a.mp4]  grabar vídeo; --stop lo detiene\n"
+  "  sniplite shelf [show|hide|add|clear|count]     gestionar el estante\n"
+  "  sniplite studio [puzzle|merge] [imágenes...]   abrir el estudio\n"
   "  sniplite settings            abrir los ajustes\n"
   "  sniplite update              buscar actualizaciones; --install instala la nueva versión\n"
   "  sniplite status              ver el estado\n"
@@ -340,6 +364,9 @@ X(ST_HK_TOGGLE,
 X(ST_HK_OCR, "识别文字热键", "辨識文字快速鍵", "Read text key", "文字認識キー", "인식 단축키", "Touche texte", "Texttaste", "Atajo texto")
 X(ST_HK_OCRCOPY, "复制文字热键", "複製文字快速鍵", "Copy text key", "文字コピーキー", "복사 단축키", "Touche copie", "Kopiertaste",
   "Atajo copiar")
+X(ST_HK_RECORD, "录制热键", "錄製快速鍵", "Record key", "録画キー", "녹화 단축키", "Touche enreg.", "Aufnahme-Taste", "Atajo grabar")
+X(ST_HK_SHELF, "衣架热键", "衣架快速鍵", "Shelf key", "シェルフキー", "선반 단축키", "Touche étagère", "Regal-Taste", "Atajo estante")
+X(ST_HK_STUDIO, "工作台热键", "工作台快速鍵", "Studio key", "スタジオキー", "스튜디오 단축키", "Touche atelier", "Studio-Taste", "Atajo estudio")
 X(ST_RUNNING,
   "sniplite %s 正在后台运行（PID %lu）\n", "sniplite %s 正在背景執行（PID %lu）\n",
   "sniplite %s is running (PID %lu)\n", "sniplite %s 実行中（PID %lu）\n", "sniplite %s 실행 중 (PID %lu)\n",
@@ -527,6 +554,7 @@ X(SHORTCUTS_TITLE,
 X(TAB_GENERAL, "常规", "一般", "General", "全般", "일반", "Général", "Allgemein", "General")
 X(TAB_CAPTURE, "截屏", "截圖", "Capture", "キャプチャ", "캡처", "Capture", "Aufnahme", "Captura")
 X(TAB_HOTKEYS, "控制", "快速鍵", "Hotkeys", "ホットキー", "단축키", "Raccourcis", "Tasten", "Atajos")
+X(TAB_TOOLS, "工具", "工具", "Tools", "ツール", "도구", "Outils", "Werkzeuge", "Herramientas")
 X(TAB_UPDATE, "更新", "更新", "Update", "更新", "업데이트", "Mise à jour", "Update", "Actualización")
 X(TAB_OCR, "文字识别", "文字辨識", "OCR", "OCR", "OCR", "OCR", "OCR", "OCR")
 X(TAB_ABOUT, "关于", "關於", "About", "情報", "정보", "À propos", "Info", "Acerca de")
@@ -925,5 +953,160 @@ X(SAVE_FILTER,
   "Imagen PNG (*.png)|*.png|Imagen JPEG (*.jpg)|*.jpg;*.jpeg|Imagen BMP (*.bmp)|*.bmp|")
 X(SAVE_TITLE, "保存截图", "儲存截圖", "Save the capture", "キャプチャを保存", "캡처 저장",
   "Enregistrer la capture", "Aufnahme speichern", "Guardar captura")
+
+/* ---- video recording ---- */
+X(RC_MENU, "录制视频", "錄製影片", "Record video", "動画を録画", "비디오 녹화", "Enregistrer une vidéo", "Video aufnehmen", "Grabar vídeo")
+X(RC_FULL, "录制全屏", "錄製全螢幕", "Record full screen", "全画面を録画", "전체 화면 녹화", "Enregistrer l'écran", "Vollbild aufnehmen", "Grabar pantalla completa")
+X(RC_WINDOW, "录制窗口", "錄製視窗", "Record a window", "ウィンドウを録画", "창 녹화", "Enregistrer une fenêtre", "Fenster aufnehmen", "Grabar ventana")
+X(RC_STOP, "停止录制", "停止錄製", "Stop recording", "録画を停止", "녹화 중지", "Arrêter l'enregistrement", "Aufnahme stoppen", "Detener grabación")
+X(RC_PICK_HINT, "点击窗口开始录制，Enter 全屏，Esc 取消", "點擊視窗開始錄製，Enter 全螢幕，Esc 取消",
+  "Click a window to record, Enter for full screen, Esc to cancel", "ウィンドウをクリックして録画、Enter で全画面、Esc で取消",
+  "창을 클릭해 녹화, Enter 전체 화면, Esc 취소", "Cliquez une fenêtre, Entrée pour l'écran entier, Échap pour annuler",
+  "Fenster anklicken, Enter für Vollbild, Esc zum Abbrechen", "Haz clic en una ventana, Enter pantalla completa, Esc cancelar")
+X(RC_PICK_NONE, "请先在列表中选择一个窗口", "請先從清單中選擇一個視窗", "Select a window in the list first",
+  "先にリストからウィンドウを選んでください", "목록에서 창을 먼저 선택하세요",
+  "Sélectionnez d'abord une fenêtre dans la liste", "Wählen Sie zuerst ein Fenster in der Liste",
+  "Selecciona primero una ventana en la lista")
+X(RC_STARTED, "开始录制：%s\n", "開始錄製：%s\n", "Recording: %s\n", "録画開始：%s\n", "녹화 시작: %s\n",
+  "Enregistrement : %s\n", "Aufnahme läuft: %s\n", "Grabando: %s\n")
+X(RC_DONE, "录像已保存：%s\n", "影片已儲存：%s\n", "Video saved: %s\n", "動画を保存しました：%s\n", "영상 저장됨: %s\n",
+  "Vidéo enregistrée : %s\n", "Video gespeichert: %s\n", "Vídeo guardado: %s\n")
+X(RC_FAIL, "录制失败：%s\n", "錄製失敗：%s\n", "Recording failed: %s\n", "録画に失敗しました：%s\n", "녹화 실패: %s\n",
+  "Échec de l'enregistrement : %s\n", "Aufnahme fehlgeschlagen: %s\n", "Error al grabar: %s\n")
+X(RC_NOMF, "此系统缺少视频编码组件（Media Foundation）\n", "此系統缺少影片編碼元件（Media Foundation）\n",
+  "This system lacks the video encoder (Media Foundation)\n", "このシステムには動画エンコーダーがありません（Media Foundation）\n",
+  "이 시스템에 인코더가 없습니다 (Media Foundation)\n", "Encodeur vidéo absent (Media Foundation)\n",
+  "Videokodierer fehlt (Media Foundation)\n", "Falta el codificador de vídeo (Media Foundation)\n")
+X(RC_TIME, "录制中 %s · 点击停止", "錄製中 %s · 點擊停止", "Recording %s · click to stop", "録画中 %s · クリックで停止",
+  "녹화 중 %s · 클릭하여 중지", "Enregistrement %s · cliquer pour arrêter", "Aufnahme %s · Klick zum Stoppen",
+  "Grabando %s · clic para detener")
+X(RC_NOT_ACTIVE, "当前没有正在进行的录制\n", "目前沒有正在進行的錄製\n", "No recording is in progress\n",
+  "録画中ではありません\n", "진행 중인 녹화가 없습니다\n", "Aucun enregistrement en cours\n", "Keine Aufnahme läuft\n", "No hay grabación en curso\n")
+X(RC_BADFILE, "录像文件必须以 .mp4 结尾\n", "影片檔案必須以 .mp4 結尾\n", "The video file must end in .mp4\n",
+  "動画ファイルは .mp4 で終わる必要があります\n", "영상 파일은 .mp4로 끝나야 합니다\n", "Le fichier doit se terminer par .mp4\n",
+  "Die Datei muss auf .mp4 enden\n", "El archivo debe terminar en .mp4\n")
+X(RC_USAGE, "用法：sniplite record [--full | --window] [--out 文件.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "用法：sniplite record [--full | --window] [--out 檔案.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "Usage: sniplite record [--full | --window] [--out file.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "使い方：sniplite record [--full | --window] [--out ファイル.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "사용법: sniplite record [--full | --window] [--out 파일.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "Usage : sniplite record [--full | --window] [--out fichier.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "Aufruf: sniplite record [--full | --window] [--out Datei.mp4] [--fps 5-60] [--bitrate 1-20]\n",
+  "Uso: sniplite record [--full | --window] [--out archivo.mp4] [--fps 5-60] [--bitrate 1-20]\n")
+
+/* ---- shelf ---- */
+X(SH_MENU, "衣架", "衣架", "Shelf", "シェルフ", "선반", "Étagère", "Regal", "Estante")
+X(SH_HIDE, "收起衣架", "收起衣架", "Hide the shelf", "シェルフを隠す", "선반 숨기기", "Masquer l'étagère", "Regal ausblenden", "Ocultar estante")
+X(SH_EMPTY, "衣架是空的 — 拖入图片、文字、SVG 或文件", "衣架是空的 — 拖入圖片、文字、SVG 或檔案",
+  "The shelf is empty — drop images, text, SVG or files", "シェルフは空です — 画像・文字・SVG・ファイルをドロップ",
+  "선반이 비어 있습니다 — 이미지, 텍스트, SVG 또는 파일을 놓으세요", "L'étagère est vide — déposez images, texte, SVG ou fichiers",
+  "Das Regal ist leer — Bilder, Text, SVG oder Dateien ablegen", "El estante está vacío — suelta imágenes, texto, SVG o archivos")
+X(SH_COPY, "复制到剪贴板", "複製到剪貼簿", "Copy to clipboard", "クリップボードにコピー", "클립보드에 복사",
+  "Copier dans le presse-papiers", "In die Zwischenablage kopieren", "Copiar al portapapeles")
+X(SH_REMOVE, "从衣架移除", "從衣架移除", "Remove from shelf", "シェルフから削除", "선반에서 제거",
+  "Retirer de l'étagère", "Vom Regal entfernen", "Quitar del estante")
+X(SH_CLEAR, "清空衣架", "清空衣架", "Clear the shelf", "シェルフを清空", "선반 비우기",
+  "Vider l'étagère", "Regal leeren", "Vaciar estante")
+X(SH_ADD, "添加到衣架", "添加到衣架", "Add to shelf", "シェルフに追加", "선반에 추가",
+  "Ajouter à l'étagère", "Zum Regal hinzufügen", "Añadir al estante")
+X(SH_THEME, "主题", "主題", "Theme", "テーマ", "테마", "Thème", "Design", "Tema")
+X(SH_THEME0, "浅色", "淺色", "Light", "ライト", "라이트", "Clair", "Hell", "Claro")
+X(SH_THEME1, "深色", "深色", "Dark", "ダーク", "다크", "Sombre", "Dunkel", "Oscuro")
+X(SH_THEME2, "玻璃", "玻璃", "Glass", "グラス", "글래스", "Verre", "Glas", "Cristal")
+X(SH_THEME3, "紧凑", "緊湊", "Compact", "コンパクト", "컴팩트", "Compact", "Kompakt", "Compacto")
+X(SH_HINT, "点按复制 · 拖出分享", "點按複製 · 拖出分享", "Click to copy · drag out to share", "クリックでコピー · ドラッグで共有",
+  "클릭하여 복사 · 끌어서 공유", "Clic pour copier · glisser pour partager", "Klick: kopieren · Ziehen: teilen",
+  "Clic para copiar · arrastra para compartir")
+X(SH_CLEARED, "衣架已清空\n", "衣架已清空\n", "Shelf cleared\n", "シェルフを清空しました\n", "선반을 비웠습니다\n",
+  "Étagère vidée\n", "Regal geleert\n", "Estante vaciado\n")
+X(SH_USAGE, "用法：sniplite shelf [show|hide|toggle|clear|add|count]\n", "用法：sniplite shelf [show|hide|toggle|clear|add|count]\n",
+  "Usage: sniplite shelf [show|hide|toggle|clear|add|count]\n", "使い方：sniplite shelf [show|hide|toggle|clear|add|count]\n",
+  "사용법: sniplite shelf [show|hide|toggle|clear|add|count]\n", "Usage : sniplite shelf [show|hide|toggle|clear|add|count]\n",
+  "Aufruf: sniplite shelf [show|hide|toggle|clear|add|count]\n", "Uso: sniplite shelf [show|hide|toggle|clear|add|count]\n")
+
+/* ---- studio ---- */
+X(STU_TITLE, "创作工作台", "創作工作台", "Creative Studio", "クリエイティブスタジオ", "크리에이티브 스튜디오",
+  "Atelier créatif", "Kreativ-Studio", "Estudio creativo")
+X(STU_PUZZLE, "创造拼图", "創造拼圖", "Create Puzzle", "パズルを作成", "퍼즐 만들기", "Créer un puzzle", "Puzzle erstellen", "Crear rompecabezas")
+X(STU_MERGE, "合并文档", "合併文件", "Merge Document", "ドキュメントを結合", "문서 병합", "Fusionner des documents", "Dokumente zusammenfügen", "Combinar documentos")
+X(STU_ADD, "添加图片", "添加圖片", "Add images", "画像を追加", "이미지 추가", "Ajouter des images", "Bilder hinzufügen", "Añadir imágenes")
+X(STU_UP, "上移", "上移", "Move up", "上へ", "위로", "Monter", "Nach oben", "Subir")
+X(STU_DOWN, "下移", "下移", "Move down", "下へ", "아래로", "Descendre", "Nach unten", "Bajar")
+X(STU_FRONT, "置于顶层", "置於頂層", "Bring to front", "最前面へ", "맨 앞으로", "Premier plan", "Nach vorn", "Traer al frente")
+X(STU_BACK, "置于底层", "置於底層", "Send to back", "最後面へ", "맨 뒤로", "Arrière-plan", "Nach hinten", "Enviar atrás")
+X(STU_DELETE, "删除", "刪除", "Delete", "削除", "삭제", "Supprimer", "Löschen", "Eliminar")
+X(STU_CLEAR, "清空", "清空", "Clear", "クリア", "지우기", "Effacer", "Leeren", "Vaciar")
+X(STU_LAYOUT, "分割布局", "分割佈局", "Split layout", "分割レイアウト", "분할 레이아웃", "Disposition", "Layout", "Distribución")
+X(STU_FREE, "自由排版", "自由排版", "Free", "自由", "자유", "Libre", "Frei", "Libre")
+X(STU_H2, "左右两分", "左右兩分", "Two columns", "左右二分", "좌우二分", "Deux colonnes", "Zwei Spalten", "Dos columnas")
+X(STU_V2, "上下两分", "上下兩分", "Two rows", "上下二分", "상하二分", "Deux lignes", "Zwei Zeilen", "Dos filas")
+X(STU_GRID4, "四宫格", "四宮格", "2×2 grid", "四分割", "사분할", "Grille 2×2", "2×2-Raster", "Rejilla 2×2")
+X(STU_GRID6, "六宫格", "六宮格", "3×2 grid", "六分割", "육분할", "Grille 3×2", "3×2-Raster", "Rejilla 3×2")
+X(STU_TOOL, "标注", "標註", "Annotate", "注釈", "주석", "Annoter", "Beschriften", "Anotar")
+X(STU_SELECT, "选择", "選擇", "Select", "選択", "선택", "Sélection", "Auswahl", "Seleccionar")
+X(STU_RECT, "矩形", "矩形", "Rectangle", "四角", "사각형", "Rectangle", "Rechteck", "Rectángulo")
+X(STU_ARROW, "箭头", "箭頭", "Arrow", "矢印", "화살표", "Flèche", "Pfeil", "Flecha")
+X(STU_TEXT, "文字", "文字", "Text", "文字", "텍스트", "Texte", "Text", "Texto")
+X(STU_MOSAIC, "马赛克", "馬賽克", "Mosaic", "モザイク", "모자이크", "Mosaïque", "Mosaik", "Mosaico")
+X(STU_EXPORT, "导出", "匯出", "Export", "書き出し", "내보내기", "Exporter", "Exportieren", "Exportar")
+X(STU_FORMAT, "格式", "格式", "Format", "形式", "형식", "Format", "Format", "Formato")
+X(STU_QUALITY, "质量", "品質", "Quality", "品質", "품질", "Qualité", "Qualität", "Calidad")
+X(STU_PDF, "PDF 文档", "PDF 文件", "PDF document", "PDF ドキュメント", "PDF 문서", "Document PDF", "PDF-Dokument", "Documento PDF")
+X(STU_PPT, "PPT 演示", "PPT 簡報", "PPT slides", "PPT スライド", "PPT 슬라이드", "Diaporama PPT", "PPT-Präsentation", "Presentación PPT")
+X(STU_PNG, "PNG 图片", "PNG 圖片", "PNG image", "PNG 画像", "PNG 이미지", "Image PNG", "PNG-Bild", "Imagen PNG")
+X(STU_WEBP, "WEBP 图片", "WEBP 圖片", "WEBP image", "WEBP 画像", "WEBP 이미지", "Image WEBP", "WEBP-Bild", "Imagen WEBP")
+X(STU_JPG, "JPG 图片", "JPG 圖片", "JPG image", "JPG 画像", "JPG 이미지", "Image JPG", "JPG-Bild", "Imagen JPG")
+X(STU_DONE, "已导出：%s\n", "已匯出：%s\n", "Exported: %s\n", "書き出しました：%s\n", "내보냄: %s\n",
+  "Exporté : %s\n", "Exportiert: %s\n", "Exportado: %s\n")
+X(STU_FAIL, "导出失败：%s\n", "匯出失敗：%s\n", "Export failed: %s\n", "書き出しに失敗：%s\n", "내보내기 실패: %s\n",
+  "Échec de l'export : %s\n", "Export fehlgeschlagen: %s\n", "Error al exportar: %s\n")
+X(STU_NO_IMAGES, "请先添加图片\n", "請先添加圖片\n", "Add some images first\n", "まず画像を追加してください\n",
+  "먼저 이미지를 추가하세요\n", "Ajoutez d'abord des images\n", "Zuerst Bilder hinzufügen\n", "Añade imágenes primero\n")
+X(STU_WEBP_MISSING, "找不到 libwebp 运行库，无法导出 WEBP。请安装 WebP 编码库。\n",
+  "找不到 libwebp 執行庫，無法匯出 WEBP。請安裝 WebP 編碼庫。\n",
+  "libwebp was not found, so WEBP cannot be exported. Install the WebP codec.\n",
+  "libwebp が見つからないため WEBP を書き出せません。WebP コーデックをインストールしてください。\n",
+  "libwebp를 찾을 수 없어 WEBP로 내보낼 수 없습니다. WebP 코덱을 설치하세요.\n",
+  "libwebp introuvable : export WEBP impossible. Installez le codec WebP.\n",
+  "libwebp nicht gefunden: WEBP-Export nicht möglich. WebP-Codec installieren.\n",
+  "No se encontró libwebp; no se puede exportar WEBP. Instala el códec WebP.\n")
+X(STU_PUZZLE_HINT, "添加图片，拖动排版，可调整图层顺序并标注", "添加圖片，拖動排版，可調整圖層順序並標註",
+  "Add images, arrange them, change layer order and annotate", "画像を追加して配置し、レイヤー順を変更して注釈を付ける",
+  "이미지를 추가하고 배치한 뒤 레이어 순서와 주석을 조정", "Ajoutez des images, arrangez-les, changez l'ordre des calques et annotez",
+  "Bilder hinzufügen, anordnen, Ebenenreihenfolge ändern und beschriften",
+  "Añade imágenes, ordénalas, ajusta capas y anota")
+X(STU_MERGE_HINT, "拖入图片并调整顺序，然后导出 PDF、PPT 或图片", "拖入圖片並調整順序，然後匯出 PDF、PPT 或圖片",
+  "Drop images, reorder them, then export PDF, PPT or an image", "画像をドロップして並べ替え、PDF・PPT・画像に書き出す",
+  "이미지를 놓고 순서를 정한 뒤 PDF, PPT 또는 이미지로 내보내기",
+  "Déposez des images, réordonnez-les, puis exportez en PDF, PPT ou image",
+  "Bilder ablegen, sortieren, dann als PDF, PPT oder Bild exportieren",
+  "Suelta imágenes, ordénalas y exporta a PDF, PPT o imagen")
+X(STU_USAGE, "用法：sniplite studio [puzzle|merge] [图片...]\n", "用法：sniplite studio [puzzle|merge] [圖片...]\n",
+  "Usage: sniplite studio [puzzle|merge] [images...]\n", "使い方：sniplite studio [puzzle|merge] [画像...]\n",
+  "사용법: sniplite studio [puzzle|merge] [이미지...]\n", "Usage : sniplite studio [puzzle|merge] [images...]\n",
+  "Aufruf: sniplite studio [puzzle|merge] [Bilder...]\n", "Uso: sniplite studio [puzzle|merge] [imágenes...]\n")
+
+/* ---- tools settings page ---- */
+X(SET_TOOLS_TAB, "工具", "工具", "Tools", "ツール", "도구", "Outils", "Werkzeuge", "Herramientas")
+X(SET_TOOLS_HINT, "F5 录制 · F6 衣架 · F7 工作台（可在快捷键页修改）",
+  "F5 錄製 · F6 衣架 · F7 工作台（可在快速鍵頁修改）",
+  "F5 record · F6 shelf · F7 studio (change them on the Hotkeys page)",
+  "F5 録画 · F6 シェルフ · F7 スタジオ（ホットキーページで変更）",
+  "F5 녹화 · F6 선반 · F7 스튜디오(단축키 페이지에서 변경)",
+  "F5 enregistrer · F6 étagère · F7 atelier (modifiables dans Raccourcis)",
+  "F5 Aufnahme · F6 Regal · F7 Studio (auf der Tastenseite änderbar)",
+  "F5 grabar · F6 estante · F7 estudio (cámbialos en Atajos)")
+X(SET_RC_GROUP, "视频录制", "影片錄製", "Video recording", "動画録画", "비디오 녹화", "Enregistrement vidéo", "Videoaufnahme", "Grabación de vídeo")
+X(SET_RC_FPS, "帧率", "幀率", "Frame rate", "フレームレート", "프레임 속도", "Fréquence", "Bildrate", "Fotogramas")
+X(SET_RC_RATE, "码率 (Mbps)", "碼率 (Mbps)", "Bitrate (Mbps)", "ビットレート (Mbps)", "비트레이트 (Mbps)", "Débit (Mbps)", "Bitrate (Mbps)", "Tasa (Mbps)")
+X(SET_SH_GROUP, "衣架", "衣架", "Shelf", "シェルフ", "선반", "Étagère", "Regal", "Estante")
+X(SET_SH_ON, "启用衣架", "啟用衣架", "Enable the shelf", "シェルフを有効にする", "선반 사용", "Activer l'étagère", "Regal aktivieren", "Activar estante")
+X(SET_SH_ALWAYS, "鼠标悬停自动展开", "滑鼠懸停自動展開", "Expand on hover", "ホバーで展開", "마우스 오버 시 펼치기", "Déplier au survol", "Bei Hover ausklappen", "Desplegar al pasar el ratón")
+X(SET_SH_CAPTURE, "截图自动加入衣架", "截圖自動加入衣架", "Add captures to the shelf", "キャプチャをシェルフに追加", "캡처를 선반에 추가",
+  "Ajouter les captures à l'étagère", "Aufnahmen zum Regal hinzufügen", "Añadir capturas al estante")
+X(SET_ST_GROUP, "工作台", "工作台", "Studio", "スタジオ", "스튜디오", "Atelier", "Studio", "Estudio")
+X(SET_ST_FMT, "默认导出格式", "預設匯出格式", "Default export format", "既定の書き出し形式", "기본 내보내기 형식",
+  "Format d'export par défaut", "Standard-Exportformat", "Formato de exportación predeterminado")
+X(SET_ST_Q, "默认质量", "預設品質", "Default quality", "既定の品質", "기본 품질", "Qualité par défaut", "Standardqualität", "Calidad predeterminada")
 
 #endif

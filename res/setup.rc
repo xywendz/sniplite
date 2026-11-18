@@ -29,8 +29,8 @@ BEGIN
 END
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 1,3,3,0
-PRODUCTVERSION 1,3,3,0
+FILEVERSION 1,4,0,0
+PRODUCTVERSION 1,4,0,0
 FILEOS VOS_NT_WINDOWS32
 FILETYPE VFT_APP
 BEGIN
@@ -39,9 +39,9 @@ BEGIN
     BLOCK "040904B0"
     BEGIN
       VALUE "FileDescription", "sniplite setup"
-      VALUE "FileVersion", "1.3.3"
+      VALUE "FileVersion", "1.4.0"
       VALUE "ProductName", "sniplite"
-      VALUE "ProductVersion", "1.3.3"
+      VALUE "ProductVersion", "1.4.0"
       VALUE "OriginalFilename", "sniplite_win_setup_amd64.exe"
       VALUE "LegalCopyright", "MIT License"
     END

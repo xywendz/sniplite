@@ -15,4 +15,4 @@ PP-OCRv6_det_tiny.onnx, PP-OCRv6_rec_tiny.onnx
     https://github.com/RapidAI/RapidOCR
     See LICENSE-PaddleOCR.txt for the text of the Apache License 2.0.
 
-sniplite itself is under the MIT License: https://github.com/MrTangLuyao/sniplite
+sniplite itself is under the MIT License: https://github.com/xywendz/sniplite

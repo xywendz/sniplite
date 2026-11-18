@@ -8,7 +8,7 @@
 
 [![English](https://img.shields.io/badge/English-eaeef2?style=flat-square)](../README.md) [![简体中文](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-eaeef2?style=flat-square)](README.zh-CN.md) [![繁體中文](https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-1677e5?style=flat-square)](README.zh-TW.md) [![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-eaeef2?style=flat-square)](README.ja.md) [![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-eaeef2?style=flat-square)](README.ko.md) [![Français](https://img.shields.io/badge/Fran%C3%A7ais-eaeef2?style=flat-square)](README.fr.md) [![Deutsch](https://img.shields.io/badge/Deutsch-eaeef2?style=flat-square)](README.de.md) [![Español](https://img.shields.io/badge/Espa%C3%B1ol-eaeef2?style=flat-square)](README.es.md)
 
-[![版本](https://img.shields.io/github/v/tag/MrTangLuyao/sniplite?sort=date&label=%E7%89%88%E6%9C%AC&style=flat-square&color=1677e5)](https://github.com/MrTangLuyao/sniplite/releases) [![系統](https://img.shields.io/badge/%E7%B3%BB%E7%B5%B1-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#下載) [![授權](https://img.shields.io/badge/%E6%8E%88%E6%AC%8A-MIT-3b82f6?style=flat-square)](../LICENSE)
+[![版本](https://img.shields.io/github/v/tag/xywendz/sniplite?sort=date&label=%E7%89%88%E6%9C%AC&style=flat-square&color=1677e5)](https://github.com/xywendz/sniplite/releases) [![系統](https://img.shields.io/badge/%E7%B3%BB%E7%B5%B1-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#下載) [![授權](https://img.shields.io/badge/%E6%8E%88%E6%AC%8A-MIT-3b82f6?style=flat-square)](../LICENSE)
 
 [**下載**](#下載) | [預設快速鍵](#預設快速鍵) | [常見問題](#常見問題)
 
@@ -35,7 +35,7 @@
 
 ## 下載
 
-到 [Releases](https://github.com/MrTangLuyao/sniplite/releases/latest) 下載最新版安裝。
+到 [Releases](https://github.com/xywendz/sniplite/releases/latest) 下載最新版安裝。
 
 也有兩個免安裝版：`sniplite_<版本>_portable_x64.exe`，以及內含文字辨識模組的 `sniplite_<版本>_portable_with_OCR_x64.exe`。
 
@@ -132,7 +132,7 @@
 
 ## 第三方開源元件
 
-sniplite 本身只用到 Windows 內建的系統程式庫。選用的文字辨識模組是他人的成果，原樣提供，並附帶它們的授權條款（在模組的 `ocr` 資料夾裡，也在[模組的發布頁](https://github.com/MrTangLuyao/sniplite/releases/tag/ocr-1)）：
+sniplite 本身只用到 Windows 內建的系統程式庫。選用的文字辨識模組是他人的成果，原樣提供，並附帶它們的授權條款（在模組的 `ocr` 資料夾裡，也在[模組的發布頁](https://github.com/xywendz/sniplite/releases/tag/ocr-1)）：
 
 - [ONNX Runtime](https://github.com/microsoft/onnxruntime) 1.26.0，Copyright (c) Microsoft Corporation，MIT 授權
 - [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) 的 PP-OCRv6 模型，Copyright (c) PaddlePaddle Authors，Apache 2.0 授權

@@ -8,7 +8,7 @@
 
 [![English](https://img.shields.io/badge/English-eaeef2?style=flat-square)](../README.md) [![简体中文](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-1677e5?style=flat-square)](README.zh-CN.md) [![繁體中文](https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-eaeef2?style=flat-square)](README.zh-TW.md) [![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-eaeef2?style=flat-square)](README.ja.md) [![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-eaeef2?style=flat-square)](README.ko.md) [![Français](https://img.shields.io/badge/Fran%C3%A7ais-eaeef2?style=flat-square)](README.fr.md) [![Deutsch](https://img.shields.io/badge/Deutsch-eaeef2?style=flat-square)](README.de.md) [![Español](https://img.shields.io/badge/Espa%C3%B1ol-eaeef2?style=flat-square)](README.es.md)
 
-[![版本](https://img.shields.io/github/v/tag/MrTangLuyao/sniplite?sort=date&label=%E7%89%88%E6%9C%AC&style=flat-square&color=1677e5)](https://github.com/MrTangLuyao/sniplite/releases) [![系统](https://img.shields.io/badge/%E7%B3%BB%E7%BB%9F-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#下载) [![许可证](https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF%E8%AF%81-MIT-3b82f6?style=flat-square)](../LICENSE)
+[![版本](https://img.shields.io/github/v/tag/xywendz/sniplite?sort=date&label=%E7%89%88%E6%9C%AC&style=flat-square&color=1677e5)](https://github.com/xywendz/sniplite/releases) [![系统](https://img.shields.io/badge/%E7%B3%BB%E7%BB%9F-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#下载) [![许可证](https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF%E8%AF%81-MIT-3b82f6?style=flat-square)](../LICENSE)
 
 [**下载**](#下载) · [默认快捷键](#默认快捷键) · [常见问题](#常见问题)
 
@@ -30,12 +30,15 @@
 - **够用**：功能全面，截图，贴图，箭头，文字，马赛克 样样都有
 - **能识字**：截图里的文字和表格都能识别出来，模块可选，全部在本机完成
 - **长截图**：自己滚动页面，边滚边自动拼接
+- **录视频**：可以全屏或指定窗口，录成 H.264 MP4（F5）
+- **衣架**：屏幕顶部的小横条，收纳截图、图片、便签、录像和文件；悬停展开，点击复制，拖出分享（F6）
+- **工作台**：[创造拼图] 支持分割布局、图层顺序和标注；[合并文档] 可导出 PDF、PPT、PNG、WEBP、JPG（F7）
 - **干净**：没有广告，开源，无日志，不收集数据
 - **多语言**：内置 8 种语言，默认跟随系统，也可以自己选
 
 ## 下载
 
-到 [Releases](https://github.com/MrTangLuyao/sniplite/releases/latest) 下载最新版安装。
+到 [Releases](https://github.com/xywendz/sniplite/releases/latest) 下载最新版安装。
 
 也有两个免安装的便携版：`sniplite_<版本>_portable_x64.exe`，以及自带文字识别模块的 `sniplite_<版本>_portable_with_OCR_x64.exe`。
 
@@ -51,6 +54,9 @@
 | **Shift+F3** | 隐藏 / 显示所有贴图 |
 | **F4** | 截图并识别文字（需要文字识别模块） |
 | **Shift+F4** | 截图并直接复制文字 |
+| **F5** | 录制视频（再按一次或点浮动条停止） |
+| **F6** | 展开 / 收起衣架 |
+| **F7** | 打开创作工作台 |
 | **Enter** | 复制截图 |
 | **Ctrl+S** | 保存截图 |
 | **Ctrl+T** | 把截图贴到屏幕上 |
@@ -94,6 +100,10 @@
 
 框选区域，点长截图按钮（Ctrl+L），然后自己滚动页面。sniplite 会把滚过的内容自动拼起来，旁边的预览条显示已经拼好的部分。按 Enter 复制，按 Esc 取消，也可以保存、贴图或者识别其中的文字。
 
+**衣架和工作台怎么用？**
+
+在首选项的“工具”页启用衣架，或直接按 F6；之后把图片、文字、SVG 或文件拖到屏幕顶部的横条上即可。鼠标移上去会展开，点击项目复制，拖出来分享。F7 打开工作台：[创造拼图] 可把图片排进分割布局、调图层顺序并标注；[合并文档] 可调整图片顺序并导出 PDF、PPT、PNG、WEBP 或 JPG。WEBP 导出需要程序目录里有 `libwebp.dll`（或 `webp.dll`），其他格式不需要额外组件。
+
 **占多少内存？**
 
 平时大约 50 MB，主要是显卡驱动占的，刚截完图会短暂多占一些。想更省的话，可以在首选项的截屏页里选省内存，只占 2 MB 左右，代价是截图会慢一点。
@@ -132,7 +142,7 @@
 
 ## 第三方开源组件
 
-sniplite 本身只用到 Windows 自带的系统库。可选的文字识别模块是别人的成果，原样提供，并附带它们的许可证（在模块的 `ocr` 文件夹里，也在[模块的发布页](https://github.com/MrTangLuyao/sniplite/releases/tag/ocr-1)）：
+sniplite 本身只用到 Windows 自带的系统库。可选的文字识别模块是别人的成果，原样提供，并附带它们的许可证（在模块的 `ocr` 文件夹里，也在[模块的发布页](https://github.com/xywendz/sniplite/releases/tag/ocr-1)）：
 
 - [ONNX Runtime](https://github.com/microsoft/onnxruntime) 1.26.0，Copyright (c) Microsoft Corporation，MIT 许可证
 - [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) 的 PP-OCRv6 模型，Copyright (c) PaddlePaddle Authors，Apache 2.0 许可证

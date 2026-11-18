@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install MinGW-w64 toolchain
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-binutils
+
+      - name: Build
+        shell: cmd
+        run: |
+          set PATH=C:\msys64\ucrt64\bin;%PATH%
+          call build.bat
+          if errorlevel 1 exit /b 1
+
+      - name: Package
+        shell: pwsh
+        run: |
+          Compress-Archive -Path @(
+            'build/sniplite.exe',
+            'build/sniplite_win_setup_amd64.exe'
+          ) -DestinationPath build/sniplite_windows_x64.zip -Force
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sniplite-windows-x64
+          path: |
+            build/sniplite.exe
+            build/sniplite_win_setup_amd64.exe
+            build/sniplite_windows_x64.zip
+          if-no-files-found: error

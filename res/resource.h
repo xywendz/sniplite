@@ -35,12 +35,12 @@
 #define IDC_HK_LABEL1 137
 #define IDC_HK_LABEL2 138
 #define IDC_HK_LABEL3 139
-#define IDC_PIN_TOP 145
+#define IDC_PIN_TOP 178
 #define IDC_TAGLINE 146
 #define IDC_LICENSE 147
 #define IDC_HK_LABEL4 148
 #define IDC_HK_LABEL5 149
-#define IDC_PROJECT 165 /* the About page: opens the project's page */
+#define IDC_PROJECT 179 /* the About page: opens the project's page */
 
 /* explicit per-row ids (resource scripts cannot do arithmetic reliably) */
 #define IDC_HK_FIELD1 140
@@ -48,16 +48,28 @@
 #define IDC_HK_FIELD3 142
 #define IDC_HK_FIELD4 143
 #define IDC_HK_FIELD5 144
+#define IDC_HK_FIELD6 145
+#define IDC_HK_FIELD7 146
+#define IDC_HK_FIELD8 147
 #define IDC_HK_CLEAR1 150
 #define IDC_HK_CLEAR2 151
 #define IDC_HK_CLEAR3 152
 #define IDC_HK_CLEAR4 153
 #define IDC_HK_CLEAR5 154
+#define IDC_HK_CLEAR6 155
+#define IDC_HK_CLEAR7 156
+#define IDC_HK_CLEAR8 157
 #define IDC_HK_STATE1 160
 #define IDC_HK_STATE2 161
 #define IDC_HK_STATE3 162
 #define IDC_HK_STATE4 163
 #define IDC_HK_STATE5 164
+#define IDC_HK_STATE6 165
+#define IDC_HK_STATE7 166
+#define IDC_HK_STATE8 167
+#define IDC_HK_LABEL6 240
+#define IDC_HK_LABEL7 241
+#define IDC_HK_LABEL8 242
 
 #define IDD_SHORTCUTS 170
 #define IDC_LIST 171
@@ -77,6 +89,23 @@
 #define IDC_O_REMOVE 189
 #define IDC_O_BAR 190
 #define IDC_O_STATUS 191
+
+/* preferences: the tools page */
+#define IDD_PAGE_TOOLS 192
+#define IDC_T_SH_ON 220
+#define IDC_T_SH_ALWAYS 221
+#define IDC_T_SH_CAPTURE 222
+#define IDC_T_FPS_LABEL 223
+#define IDC_T_FPS 224
+#define IDC_T_RATE_LABEL 225
+#define IDC_T_RATE 226
+#define IDC_T_THEME_LABEL 227
+#define IDC_T_THEME 228
+#define IDC_T_FMT_LABEL 229
+#define IDC_T_FMT 230
+#define IDC_T_Q_LABEL 231
+#define IDC_T_Q 232
+#define IDC_T_HINT 233
 
 /* installer */
 #define IDD_SETUP 200

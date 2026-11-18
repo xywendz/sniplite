@@ -3,6 +3,7 @@
  * --update-check, --ocr, --uninstall), each its own short-lived process. */
 #include "common.h"
 #include "config.h"
+#include "feature.h"
 #include "image.h"
 #include "install.h"
 #include "lang.h"
@@ -17,6 +18,7 @@
 
 #define WM_APP_TRAY (WM_APP + 2)
 #define WM_APP_SETTINGS_DONE (WM_APP + 3)
+#define WM_APP_REC_DONE (WM_APP + 11)
 #define TIMER_MENU_CAPTURE 1
 #define TIMER_UPDATE 2
 #define UPDATE_FIRST_MS (60 * 1000)           /* first check a minute after start */
@@ -61,7 +63,7 @@ static void hotkey_apply(int id, UINT mod, UINT vk)
     k->vk = vk;
     hotkey_format(mod, vk, k->text);
     /* the two for text only while there is a module to read it: without one they would take keys for nothing */
-    bool wanted = vk && (id < HK_OCR || ocr_there);
+    bool wanted = vk && ((id != HK_OCR && id != HK_OCRCOPY) || ocr_there);
     k->ok = !wanted || RegisterHotKey(D.hwnd, id, mod | MOD_NOREPEAT, vk);
 }
 
@@ -160,7 +162,8 @@ static void resolve_path(const WCHAR *cwd, const WCHAR *p, WCHAR *out, int cap)
 
 static bool start_opts_parse(int argc, WCHAR **argv, StartOpts *so, Str *err)
 {
-    static const WCHAR *names[HK_COUNT] = {NULL, L"--hotkey", L"--pin-hotkey", L"--toggle-hotkey", L"--ocr-hotkey", L"--ocr-copy-hotkey"};
+    static const WCHAR *names[HK_COUNT] = {NULL, L"--hotkey", L"--pin-hotkey", L"--toggle-hotkey", L"--ocr-hotkey",
+                                           L"--ocr-copy-hotkey", L"--record-hotkey", L"--shelf-hotkey", L"--studio-hotkey"};
     memset(so, 0, sizeof *so);
     for (int id = 1; id < HK_COUNT; id++) {
         const WCHAR *v = opt_val(argc, argv, names[id]);
@@ -227,7 +230,8 @@ static void status_text(Str *out)
 
 static void status_json(Str *out)
 {
-    static const WCHAR *keys[HK_COUNT] = {NULL, L"capture", L"pin", L"toggle_pins", L"ocr", L"ocr_copy"};
+    static const WCHAR *keys[HK_COUNT] = {NULL, L"capture", L"pin", L"toggle_pins", L"ocr", L"ocr_copy", L"record",
+                                          L"shelf", L"studio"};
     str_addf(out, L"{\"running\":true,\"version\":\"%s\",\"pid\":%lu,\"backend\":\"%s\",\"capturing\":%s,\"pins\":%d,",
              SNIPLITE_VERSION, GetCurrentProcessId(), shot_backend(), ov_active() ? L"true" : L"false", pin_count());
     str_add(out, L"\"hotkeys\":{");
@@ -334,6 +338,7 @@ static void apply_config(const Config *c, bool force_keys)
         D.update_timer = false;
     }
     D.cfg = *c;
+    shelf_apply_config();
     tray_refresh_tip();
 }
 
@@ -504,6 +509,8 @@ static int capture_now(RECT sr, const WCHAR *path, bool clip, bool pin, bool jso
     }
     shot_copy(&sh, cr, im.px, w);
     shot_free(&sh);
+    if (D.cfg.shelf_add_capture)
+        shelf_add_capture(&im);
     bool saved = false, copied = false, pinned = false;
     if (path)
         saved = image_save(path, im.px, w, w, h);
@@ -675,8 +682,17 @@ static int cmd_run(int argc, WCHAR **argv, const WCHAR *cwd, Str *out)
         long_cancel();
         return EXIT_OK;
     }
+    if (arg_eq(c, L"record"))
+        return rec_cmd(argc, argv, cwd, json, out);
+    if (arg_eq(c, L"shelf"))
+        return shelf_cmd(argc, argv, json, out);
+    if (arg_eq(c, L"studio"))
+        return studio_cmd(argc, argv, cwd, json, out);
     if (arg_eq(c, L"settings")) { /* `settings update`, `settings ocr`: on that tab */
-        const WCHAR *page = argc > 1 && arg_eq(argv[1], L"update") ? L"update" : argc > 1 && arg_eq(argv[1], L"ocr") ? L"ocr" : NULL;
+        const WCHAR *page = argc > 1 && arg_eq(argv[1], L"update")   ? L"update"
+                            : argc > 1 && arg_eq(argv[1], L"ocr")     ? L"ocr"
+                            : argc > 1 && arg_eq(argv[1], L"tools")   ? L"tools"
+                                                                      : NULL;
         if (!settings_open(page)) {
             str_add(out, T(ERR_SETTINGS));
             return EXIT_FAIL;
@@ -732,7 +748,24 @@ static void pin_clipboard(void)
         MessageBeep(MB_ICONWARNING);
 }
 
-enum { TM_CAPTURE = 1, TM_PIN, TM_TOGGLE, TM_CLOSE_PINS, TM_SETTINGS, TM_HELP, TM_UPDATE, TM_ABOUT, TM_EXIT };
+enum {
+    TM_CAPTURE = 1,
+    TM_PIN,
+    TM_TOGGLE,
+    TM_CLOSE_PINS,
+    TM_RECORD,
+    TM_RECORD_WINDOW,
+    TM_RECORD_STOP,
+    TM_SHELF,
+    TM_SHELF_ADD,
+    TM_STUDIO,
+    TM_STUDIO_MERGE,
+    TM_SETTINGS,
+    TM_HELP,
+    TM_UPDATE,
+    TM_ABOUT,
+    TM_EXIT
+};
 
 static void menu_item(HMENU m, UINT id, const WCHAR *text, int hk, bool enabled)
 {
@@ -753,6 +786,15 @@ static void tray_menu(POINT at)
     AppendMenuW(m, MF_SEPARATOR, 0, NULL);
     menu_item(m, TM_TOGGLE, pins && !pin_any_visible() ? T(M_SHOW_PINS) : T(M_HIDE_PINS), HK_TOGGLE, pins);
     menu_item(m, TM_CLOSE_PINS, T(M_CLOSE_PINS), 0, pins);
+    AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+    menu_item(m, TM_RECORD, T(RC_FULL), HK_RECORD, !rec_active());
+    menu_item(m, TM_RECORD_WINDOW, T(RC_WINDOW), 0, !rec_active());
+    menu_item(m, TM_RECORD_STOP, T(RC_STOP), 0, rec_active());
+    AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+    menu_item(m, TM_SHELF, shelf_visible() ? T(SH_HIDE) : T(SH_MENU), HK_SHELF, true);
+    menu_item(m, TM_SHELF_ADD, T(SH_ADD), 0, true);
+    menu_item(m, TM_STUDIO, T(STU_PUZZLE), HK_STUDIO, true);
+    menu_item(m, TM_STUDIO_MERGE, T(STU_MERGE), 0, true);
     AppendMenuW(m, MF_SEPARATOR, 0, NULL);
     menu_item(m, TM_SETTINGS, T(M_SETTINGS), 0, true);
     menu_item(m, TM_HELP, T(M_HELP), 0, true);
@@ -779,6 +821,27 @@ static void tray_menu(POINT at)
         break;
     case TM_CLOSE_PINS:
         pin_close_all();
+        break;
+    case TM_RECORD:
+        rec_start(true, NULL, NULL, D.cfg.rec_fps, D.cfg.rec_bitrate, NULL);
+        break;
+    case TM_RECORD_WINDOW:
+        rec_pick();
+        break;
+    case TM_RECORD_STOP:
+        rec_stop();
+        break;
+    case TM_SHELF:
+        shelf_toggle();
+        break;
+    case TM_SHELF_ADD:
+        shelf_add_clipboard(D.hwnd);
+        break;
+    case TM_STUDIO:
+        studio_open(STUDIO_PUZZLE);
+        break;
+    case TM_STUDIO_MERGE:
+        studio_open(STUDIO_MERGE);
         break;
     case TM_SETTINGS:
         settings_open(NULL);
@@ -854,7 +917,19 @@ static LRESULT CALLBACK daemon_proc(HWND h, UINT m, WPARAM wp, LPARAM lp)
             pin_toggle_all();
         } else if (wp == HK_OCR || wp == HK_OCRCOPY) {
             ocr_capture(wp == HK_OCRCOPY);
+        } else if (wp == HK_RECORD) {
+            if (rec_active())
+                rec_stop();
+            else
+                rec_pick();
+        } else if (wp == HK_SHELF) {
+            shelf_toggle();
+        } else if (wp == HK_STUDIO) {
+            studio_open(STUDIO_PUZZLE);
         }
+        return 0;
+    case WM_APP_REC_DONE:
+        rec_indicator_tick();
         return 0;
     case WM_APP_OCR_THEN:
         ocr_then((int)wp);
@@ -870,6 +945,9 @@ static LRESULT CALLBACK daemon_proc(HWND h, UINT m, WPARAM wp, LPARAM lp)
     case WM_CLOSE:
         ov_cancel();
         pin_close_all();
+        rec_shutdown();
+        studio_shutdown();
+        shelf_shutdown();
         tray_remove();
         for (int id = 1; id < HK_COUNT; id++)
             UnregisterHotKey(h, id);
@@ -933,6 +1011,9 @@ static int daemon_main(HINSTANCE inst, int argc, WCHAR **argv, bool from_cli)
     ocr_refresh();
     if (!ov_init(inst, D.hwnd) || !pin_init(inst, D.hwnd))
         return EXIT_FAIL;
+    rec_init(inst, D.hwnd);
+    shelf_init(inst, D.hwnd);
+    studio_init(inst, D.hwnd);
 
     /* Settings: defaults, then sniplite.ini, then command-line start options
      * (lenient here: invalid ones are reported by the CLI's own start call). */

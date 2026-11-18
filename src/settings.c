@@ -10,6 +10,7 @@
 #include "settings.h"
 #include "config.h"
 #include "draw.h"
+#include "feature.h"
 #include "image.h"
 #include "resource.h"
 #include "install.h"
@@ -31,7 +32,7 @@ typedef HRESULT(WINAPI *PFN_DrawThemeParentBackground)(HWND, HDC, const RECT *);
 #define HKN_DONE 2
 #define ETDT_ENABLETAB_ 6
 
-enum { PG_GENERAL, PG_CAPTURE, PG_HOTKEYS, PG_UPDATE, PG_OCR, PG_ABOUT, PG_COUNT };
+enum { PG_GENERAL, PG_CAPTURE, PG_HOTKEYS, PG_TOOLS, PG_UPDATE, PG_OCR, PG_ABOUT, PG_COUNT };
 enum { RI_NONE, RI_CLEAR, RI_OK, RI_FAIL, RI_HELP }; /* round icons */
 
 static struct {
@@ -800,7 +801,7 @@ static void page_command(HWND page, int id, int code, HWND ctl)
             set_language(lang);
         return;
     }
-    if (id >= IDC_HK_FIELD1 && id <= IDC_HK_FIELD5) {
+    if (id >= IDC_HK_FIELD1 && id <= IDC_HK_FIELD8) {
         int hk = id - IDC_HK_FIELD1 + 1;
         if (code == HKN_BEGIN) {
             daemon_cmd(L"_hotkeys", L"off"); /* let our own hotkeys reach the field */
@@ -812,11 +813,37 @@ static void page_command(HWND page, int id, int code, HWND ctl)
         }
         return;
     }
-    if (id >= IDC_HK_CLEAR1 && id <= IDC_HK_CLEAR5) {
+    if (id >= IDC_HK_CLEAR1 && id <= IDC_HK_CLEAR8) {
         int hk = id - IDC_HK_CLEAR1 + 1;
         S.cfg.mod[hk] = S.cfg.vk[hk] = 0;
         show_hotkeys();
         apply();
+        return;
+    }
+    if (code == EN_CHANGE && (id == IDC_T_FPS || id == IDC_T_RATE || id == IDC_T_Q)) {
+        BOOL ok;
+        UINT v = GetDlgItemInt(page, id, &ok, FALSE);
+        if (ok) {
+            if (id == IDC_T_FPS) {
+                int n = CLAMPI((int)v, 5, 60);
+                if (n != S.cfg.rec_fps) {
+                    S.cfg.rec_fps = n;
+                    apply();
+                }
+            } else if (id == IDC_T_RATE) {
+                int n = CLAMPI((int)v, 1, 20);
+                if (n != S.cfg.rec_bitrate) {
+                    S.cfg.rec_bitrate = n;
+                    apply();
+                }
+            } else {
+                int n = CLAMPI((int)v, 10, 100);
+                if (n != S.cfg.export_quality) {
+                    S.cfg.export_quality = n;
+                    apply();
+                }
+            }
+        }
         return;
     }
     if (code != BN_CLICKED)
@@ -843,6 +870,30 @@ static void page_command(HWND page, int id, int code, HWND ctl)
     case IDC_GDI:
         S.cfg.gdi = id == IDC_GDI;
         apply();
+        break;
+    case IDC_T_SH_ON:
+        S.cfg.shelf_on = IsDlgButtonChecked(page, IDC_T_SH_ON) == BST_CHECKED;
+        apply();
+        break;
+    case IDC_T_SH_ALWAYS:
+        S.cfg.shelf_always = IsDlgButtonChecked(page, IDC_T_SH_ALWAYS) == BST_CHECKED;
+        apply();
+        break;
+    case IDC_T_SH_CAPTURE:
+        S.cfg.shelf_add_capture = IsDlgButtonChecked(page, IDC_T_SH_CAPTURE) == BST_CHECKED;
+        apply();
+        break;
+    case IDC_T_THEME:
+        if (code == CBN_SELCHANGE) {
+            S.cfg.shelf_theme = CLAMPI((int)SendMessageW(ctl, CB_GETCURSEL, 0, 0), 0, SH_THEME_COUNT - 1);
+            apply();
+        }
+        break;
+    case IDC_T_FMT:
+        if (code == CBN_SELCHANGE) {
+            S.cfg.export_fmt = CLAMPI((int)SendMessageW(ctl, CB_GETCURSEL, 0, 0), 0, 4);
+            apply();
+        }
         break;
     case IDC_OPEN_INI:
         ensure_ini(path);
@@ -902,6 +953,28 @@ static void page_command(HWND page, int id, int code, HWND ctl)
             memcpy(S.cfg.mod, d.mod, sizeof d.mod);
             memcpy(S.cfg.vk, d.vk, sizeof d.vk);
             show_hotkeys();
+        } else if (page == S.page[PG_TOOLS]) {
+            S.cfg.shelf_on = d.shelf_on;
+            S.cfg.shelf_always = d.shelf_always;
+            S.cfg.shelf_theme = d.shelf_theme;
+            S.cfg.shelf_add_capture = d.shelf_add_capture;
+            S.cfg.rec_fps = d.rec_fps;
+            S.cfg.rec_bitrate = d.rec_bitrate;
+            S.cfg.export_fmt = d.export_fmt;
+            S.cfg.export_quality = d.export_quality;
+            HWND t = S.page[PG_TOOLS];
+            CheckDlgButton(t, IDC_T_SH_ON, d.shelf_on ? BST_CHECKED : BST_UNCHECKED);
+            CheckDlgButton(t, IDC_T_SH_ALWAYS, d.shelf_always ? BST_CHECKED : BST_UNCHECKED);
+            CheckDlgButton(t, IDC_T_SH_CAPTURE, d.shelf_add_capture ? BST_CHECKED : BST_UNCHECKED);
+            SendDlgItemMessageW(t, IDC_T_THEME, CB_SETCURSEL, (WPARAM)d.shelf_theme, 0);
+            SendDlgItemMessageW(t, IDC_T_FMT, CB_SETCURSEL, (WPARAM)d.export_fmt, 0);
+            WCHAR num[32];
+            wsprintfW(num, L"%d", d.rec_fps);
+            SetDlgItemTextW(t, IDC_T_FPS, num);
+            wsprintfW(num, L"%d", d.rec_bitrate);
+            SetDlgItemTextW(t, IDC_T_RATE, num);
+            wsprintfW(num, L"%d", d.export_quality);
+            SetDlgItemTextW(t, IDC_T_Q, num);
         } else if (page == S.page[PG_UPDATE]) {
             S.cfg.auto_update = d.auto_update;
             CheckDlgButton(page, IDC_U_AUTO, d.auto_update ? BST_CHECKED : BST_UNCHECKED);
@@ -925,9 +998,9 @@ static INT_PTR CALLBACK page_proc(HWND h, UINT m, WPARAM wp, LPARAM lp)
     case WM_DRAWITEM: {
         const DRAWITEMSTRUCT *di = (const DRAWITEMSTRUCT *)lp;
         int id = (int)di->CtlID, kind = RI_NONE;
-        if (id >= IDC_HK_CLEAR1 && id <= IDC_HK_CLEAR5)
+        if (id >= IDC_HK_CLEAR1 && id <= IDC_HK_CLEAR8)
             kind = RI_CLEAR;
-        else if (id >= IDC_HK_STATE1 && id <= IDC_HK_STATE5) {
+        else if (id >= IDC_HK_STATE1 && id <= IDC_HK_STATE8) {
             int hk = id - IDC_HK_STATE1 + 1;
             kind = !S.cfg.vk[hk] || S.state[hk] == 2 ? RI_NONE : S.state[hk] ? RI_OK : RI_FAIL;
         } else if (id == IDC_HELPBTN)
@@ -964,7 +1037,7 @@ static const struct {
 static const struct {
     unsigned char page;
     unsigned char id; /* IDC_... */
-    unsigned char s;  /* S_... */
+    int s;            /* S_... */
 } kTexts[] = {
     {PG_GENERAL, IDC_AUTOSTART, S_G_AUTOSTART},
     {PG_GENERAL, IDC_TRAY, S_G_TRAY},
@@ -983,8 +1056,20 @@ static const struct {
     {PG_HOTKEYS, IDC_HK_LABEL3, S_H_TOGGLE},
     {PG_HOTKEYS, IDC_HK_LABEL4, S_H_OCR},
     {PG_HOTKEYS, IDC_HK_LABEL5, S_H_OCRCOPY},
+    {PG_HOTKEYS, IDC_HK_LABEL6, S_ST_HK_RECORD},
+    {PG_HOTKEYS, IDC_HK_LABEL7, S_ST_HK_SHELF},
+    {PG_HOTKEYS, IDC_HK_LABEL8, S_ST_HK_STUDIO},
     {PG_HOTKEYS, IDC_HINT, S_H_HINT},
     {PG_HOTKEYS, IDC_BUILTIN, S_H_BUILTIN},
+    {PG_TOOLS, IDC_T_SH_ON, S_SH_MENU},
+    {PG_TOOLS, IDC_T_THEME_LABEL, S_SH_THEME},
+    {PG_TOOLS, IDC_T_SH_ALWAYS, S_SET_SH_ALWAYS},
+    {PG_TOOLS, IDC_T_SH_CAPTURE, S_SET_SH_CAPTURE},
+    {PG_TOOLS, IDC_T_FPS_LABEL, S_SET_RC_FPS},
+    {PG_TOOLS, IDC_T_RATE_LABEL, S_SET_RC_RATE},
+    {PG_TOOLS, IDC_T_FMT_LABEL, S_SET_ST_FMT},
+    {PG_TOOLS, IDC_T_Q_LABEL, S_SET_ST_Q},
+    {PG_TOOLS, IDC_T_HINT, S_SET_TOOLS_HINT},
     {PG_UPDATE, IDC_U_CHECK, S_U_CHECK_BTN},
     {PG_UPDATE, IDC_U_INSTALL, S_U_INSTALL_BTN},
     {PG_UPDATE, IDC_U_AUTO, S_U_AUTO},
@@ -994,7 +1079,7 @@ static const struct {
     {PG_ABOUT, IDC_TAGLINE, S_TAGLINE},
     {PG_ABOUT, IDC_LICENSE, S_A_LICENSE},
 };
-_Static_assert(S_COUNT <= 256, "kTexts keeps text numbers in a byte");
+_Static_assert(S_COUNT <= 65536, "kTexts keeps text numbers in an int");
 
 static void select_page(int i)
 {
@@ -1016,8 +1101,8 @@ static INT_PTR CALLBACK main_proc(HWND h, UINT m, WPARAM wp, LPARAM lp)
         SendMessageW(h, WM_SETICON, ICON_SMALL, (LPARAM)small);
         SetPropW(h, SETTINGS_MARK, (HANDLE)1);
         SetWindowTextW(h, T(SETTINGS_TITLE));
-        static const int ids[PG_COUNT] = {IDD_PAGE_GENERAL, IDD_PAGE_CAPTURE, IDD_PAGE_HOTKEYS, IDD_PAGE_UPDATE,
-                                           IDD_PAGE_OCR,     IDD_PAGE_ABOUT};
+        static const int ids[PG_COUNT] = {IDD_PAGE_GENERAL, IDD_PAGE_CAPTURE, IDD_PAGE_HOTKEYS, IDD_PAGE_TOOLS,
+                                           IDD_PAGE_UPDATE,  IDD_PAGE_OCR,     IDD_PAGE_ABOUT};
         RECT rc;
         GetWindowRect(S.tabs, &rc);
         MapWindowPoints(NULL, h, (POINT *)&rc, 2);
@@ -1052,6 +1137,23 @@ static INT_PTR CALLBACK main_proc(HWND h, UINT m, WPARAM wp, LPARAM lp)
         config_path(ini, MAX_PATH);
         SetDlgItemTextW(g, IDC_INI_PATH, ini);
         CheckRadioButton(c, IDC_DXGI, IDC_GDI, S.cfg.gdi ? IDC_GDI : IDC_DXGI);
+        HWND tools = S.page[PG_TOOLS];
+        CheckDlgButton(tools, IDC_T_SH_ON, S.cfg.shelf_on ? BST_CHECKED : BST_UNCHECKED);
+        CheckDlgButton(tools, IDC_T_SH_ALWAYS, S.cfg.shelf_always ? BST_CHECKED : BST_UNCHECKED);
+        CheckDlgButton(tools, IDC_T_SH_CAPTURE, S.cfg.shelf_add_capture ? BST_CHECKED : BST_UNCHECKED);
+        for (int i = 0; i < SH_THEME_COUNT; i++)
+            SendDlgItemMessageW(tools, IDC_T_THEME, CB_ADDSTRING, 0, (LPARAM)g_tr[S_SH_THEME0 + i]);
+        SendDlgItemMessageW(tools, IDC_T_THEME, CB_SETCURSEL, (WPARAM)S.cfg.shelf_theme, 0);
+        static const int kFmts[] = {S_STU_PDF, S_STU_PPT, S_STU_PNG, S_STU_WEBP, S_STU_JPG};
+        for (int i = 0; i < COUNTOF(kFmts); i++)
+            SendDlgItemMessageW(tools, IDC_T_FMT, CB_ADDSTRING, 0, (LPARAM)g_tr[kFmts[i]]);
+        SendDlgItemMessageW(tools, IDC_T_FMT, CB_SETCURSEL, (WPARAM)S.cfg.export_fmt, 0);
+        wsprintfW(t, L"%d", S.cfg.rec_fps);
+        SetDlgItemTextW(tools, IDC_T_FPS, t);
+        wsprintfW(t, L"%d", S.cfg.rec_bitrate);
+        SetDlgItemTextW(tools, IDC_T_RATE, t);
+        wsprintfW(t, L"%d", S.cfg.export_quality);
+        SetDlgItemTextW(tools, IDC_T_Q, t);
         SetDlgItemTextW(S.page[PG_ABOUT], IDC_VERSION,
                         S.portable ? L"sniplite " SNIPLITE_VERSION L" portable" : L"sniplite " SNIPLITE_VERSION);
         SetDlgItemTextW(S.page[PG_ABOUT], IDC_PROJECT, UPDATE_HOST UPDATE_REPO); /* the link is its own text */
@@ -1174,7 +1276,11 @@ static void helper_init(HINSTANCE inst)
 int settings_main(HINSTANCE inst, const WCHAR *page)
 {
     S.ocr_auto = page && arg_eq(page, L"ocr-install"); /* from the installer: download the module at once */
-    S.start_page = !page ? PG_GENERAL : arg_eq(page, L"update") ? PG_UPDATE : arg_eq(page, L"ocr") || S.ocr_auto ? PG_OCR : PG_GENERAL;
+    S.start_page = !page                      ? PG_GENERAL
+                   : arg_eq(page, L"update")  ? PG_UPDATE
+                   : arg_eq(page, L"tools")   ? PG_TOOLS
+                   : arg_eq(page, L"ocr") || S.ocr_auto ? PG_OCR
+                                              : PG_GENERAL;
     HWND open = ipc_find_dialog(SETTINGS_MARK);
     if (open) {
         if (S.start_page != PG_GENERAL)

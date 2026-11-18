@@ -4,7 +4,7 @@
 #include "common.h"
 
 #ifndef UPDATE_REPO /* a test build may point elsewhere */
-#define UPDATE_REPO L"/MrTangLuyao/sniplite"
+#define UPDATE_REPO L"/xywendz/sniplite"
 #endif
 #define UPDATE_HOST L"github.com"
 /* The installer: as build.bat makes it, and under this very name in every release.

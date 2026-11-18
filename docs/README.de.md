@@ -8,7 +8,7 @@
 
 [![English](https://img.shields.io/badge/English-eaeef2?style=flat-square)](../README.md) [![简体中文](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-eaeef2?style=flat-square)](README.zh-CN.md) [![繁體中文](https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-eaeef2?style=flat-square)](README.zh-TW.md) [![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-eaeef2?style=flat-square)](README.ja.md) [![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-eaeef2?style=flat-square)](README.ko.md) [![Français](https://img.shields.io/badge/Fran%C3%A7ais-eaeef2?style=flat-square)](README.fr.md) [![Deutsch](https://img.shields.io/badge/Deutsch-1677e5?style=flat-square)](README.de.md) [![Español](https://img.shields.io/badge/Espa%C3%B1ol-eaeef2?style=flat-square)](README.es.md)
 
-[![Version](https://img.shields.io/github/v/tag/MrTangLuyao/sniplite?sort=date&label=Version&style=flat-square&color=1677e5)](https://github.com/MrTangLuyao/sniplite/releases) [![System](https://img.shields.io/badge/System-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#download) [![Lizenz](https://img.shields.io/badge/Lizenz-MIT-3b82f6?style=flat-square)](../LICENSE)
+[![Version](https://img.shields.io/github/v/tag/xywendz/sniplite?sort=date&label=Version&style=flat-square&color=1677e5)](https://github.com/xywendz/sniplite/releases) [![System](https://img.shields.io/badge/System-Windows%2010%20%2F%2011-3b82f6?style=flat-square)](#download) [![Lizenz](https://img.shields.io/badge/Lizenz-MIT-3b82f6?style=flat-square)](../LICENSE)
 
 [**Download**](#download) | [Standard-Tastenkürzel](#standard-tastenkürzel) | [Häufige Fragen](#häufige-fragen)
 
@@ -35,7 +35,7 @@
 
 ## Download
 
-Den neuesten Installer gibt es unter [Releases](https://github.com/MrTangLuyao/sniplite/releases/latest).
+Den neuesten Installer gibt es unter [Releases](https://github.com/xywendz/sniplite/releases/latest).
 
 Dazu gibt es zwei portable Versionen ohne Installation: `sniplite_<Version>_portable_x64.exe` und `sniplite_<Version>_portable_with_OCR_x64.exe`, die das Texterkennungsmodul mitbringt.
 
@@ -132,7 +132,7 @@ Ja. `sniplite help` zeigt alle Befehle.
 
 ## Open Source von Dritten
 
-sniplite selbst nutzt nur die Systembibliotheken von Windows. Das optionale Texterkennungsmodul ist die Arbeit anderer und wird unverändert mit deren Lizenzen weitergegeben (im Ordner `ocr` des Moduls und auf der [Seite des Moduls](https://github.com/MrTangLuyao/sniplite/releases/tag/ocr-1)):
+sniplite selbst nutzt nur die Systembibliotheken von Windows. Das optionale Texterkennungsmodul ist die Arbeit anderer und wird unverändert mit deren Lizenzen weitergegeben (im Ordner `ocr` des Moduls und auf der [Seite des Moduls](https://github.com/xywendz/sniplite/releases/tag/ocr-1)):
 
 - [ONNX Runtime](https://github.com/microsoft/onnxruntime) 1.26.0, Copyright (c) Microsoft Corporation, MIT-Lizenz
 - Die PP-OCRv6-Modelle von [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), Copyright (c) PaddlePaddle Authors, Apache-Lizenz 2.0

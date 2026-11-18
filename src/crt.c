@@ -59,6 +59,14 @@ wchar_t *wcsrchr(const wchar_t *s, wchar_t c)
     }
 }
 
+size_t strlen(const char *s)
+{
+    const char *e = s;
+    while (*e)
+        e++;
+    return (size_t)(e - s);
+}
+
 size_t wcslen(const wchar_t *s)
 {
     const wchar_t *e = s;

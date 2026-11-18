@@ -2,6 +2,7 @@
  * sniplite.ini lives next to the exe and is only written from the preferences window;
  * without it everything uses the defaults. */
 #include "config.h"
+#include "feature.h"
 #include "lang.h"
 
 static const struct {
@@ -101,14 +102,25 @@ void config_defaults(Config *c)
     hotkey_parse(L"Shift+F3", &c->mod[HK_TOGGLE], &c->vk[HK_TOGGLE]);
     hotkey_parse(L"F4", &c->mod[HK_OCR], &c->vk[HK_OCR]);
     hotkey_parse(L"Shift+F4", &c->mod[HK_OCRCOPY], &c->vk[HK_OCRCOPY]);
+    hotkey_parse(L"F5", &c->mod[HK_RECORD], &c->vk[HK_RECORD]);
+    hotkey_parse(L"F6", &c->mod[HK_SHELF], &c->vk[HK_SHELF]);
+    hotkey_parse(L"F7", &c->mod[HK_STUDIO], &c->vk[HK_STUDIO]);
     c->tray = true;
     c->pin_top = true;
     c->auto_update = true;
+    c->rec_fps = 30;
+    c->rec_bitrate = 4;
+    c->shelf_always = true;
+    c->shelf_theme = 0;
+    c->shelf_add_capture = true;
+    c->export_fmt = 0;
+    c->export_quality = 85;
 }
 
 void config_path(WCHAR *out, int cap) { ini_path(out, cap); }
 
-static const WCHAR *kHkKeys[HK_COUNT] = {NULL, L"hotkey", L"pin_hotkey", L"toggle_hotkey", L"ocr_hotkey", L"ocr_copy_hotkey"};
+static const WCHAR *kHkKeys[HK_COUNT] = {NULL, L"hotkey", L"pin_hotkey", L"toggle_hotkey", L"ocr_hotkey",
+                                         L"ocr_copy_hotkey", L"record_hotkey", L"shelf_hotkey", L"studio_hotkey"};
 
 bool config_load(Config *c)
 {
@@ -131,6 +143,14 @@ bool config_load(Config *c)
     c->tray = GetPrivateProfileIntW(L"sniplite", L"tray", 1, path) != 0;
     c->pin_top = GetPrivateProfileIntW(L"sniplite", L"pin_top", 1, path) != 0;
     c->auto_update = GetPrivateProfileIntW(L"sniplite", L"auto_update", 1, path) != 0;
+    c->rec_fps = CLAMPI((int)GetPrivateProfileIntW(L"sniplite", L"rec_fps", 30, path), 5, 60);
+    c->rec_bitrate = CLAMPI((int)GetPrivateProfileIntW(L"sniplite", L"rec_bitrate", 4, path), 1, 20);
+    c->shelf_on = GetPrivateProfileIntW(L"sniplite", L"shelf", 0, path) != 0;
+    c->shelf_always = GetPrivateProfileIntW(L"sniplite", L"shelf_always", 1, path) != 0;
+    c->shelf_theme = CLAMPI((int)GetPrivateProfileIntW(L"sniplite", L"shelf_theme", 0, path), 0, SH_THEME_COUNT - 1);
+    c->shelf_add_capture = GetPrivateProfileIntW(L"sniplite", L"shelf_capture", 1, path) != 0;
+    c->export_fmt = CLAMPI((int)GetPrivateProfileIntW(L"sniplite", L"export_fmt", 0, path), 0, 4);
+    c->export_quality = CLAMPI((int)GetPrivateProfileIntW(L"sniplite", L"export_quality", 85, path), 10, 100);
     return true;
 }
 
@@ -152,6 +172,10 @@ bool config_save(const Config *c)
     }
     str_addf(&s, L"capture=%s\r\ntray=%d\r\nauto_update=%d\r\npin_top=%d\r\n", c->gdi ? L"gdi" : L"dxgi", c->tray ? 1 : 0,
              c->auto_update ? 1 : 0, c->pin_top ? 1 : 0);
+    str_addf(&s, L"rec_fps=%d\r\nrec_bitrate=%d\r\n", c->rec_fps, c->rec_bitrate);
+    str_addf(&s, L"shelf=%d\r\nshelf_always=%d\r\nshelf_theme=%d\r\nshelf_capture=%d\r\n", c->shelf_on ? 1 : 0,
+             c->shelf_always ? 1 : 0, c->shelf_theme, c->shelf_add_capture ? 1 : 0);
+    str_addf(&s, L"export_fmt=%d\r\nexport_quality=%d\r\n", c->export_fmt, c->export_quality);
     if (lang_choice() != LG_AUTO) /* kept by lang.c; without the line the language follows Windows */
         str_addf(&s, L"lang=%s\r\n", lang_code(lang_choice()));
     /* UTF-8 without BOM: Notepad shows the comments, and the ASCII keys/values

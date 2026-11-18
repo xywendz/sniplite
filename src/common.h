@@ -21,7 +21,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define SNIPLITE_VERSION L"1.3.3"
+#define SNIPLITE_VERSION L"1.4.0"
 
 #define DAEMON_CLASS L"sniplite.daemon"
 #define DAEMON_MUTEX L"Local\\sniplite.daemon"
